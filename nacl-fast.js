@@ -2372,9 +2372,9 @@ nacl.setPRNG = function(fn) {
       for (i = 0; i < n; i++) x[i] = v[i];
       cleanup(v);
     });
-  } else if (typeof require !== 'undefined') {
-    // Node.js.
-    crypto = require('crypto');
+  } else {
+    // Node.js and React Native
+    crypto = (typeof global !== 'undefined' && global.crypto) || require('crypto');
     if (crypto && crypto.randomBytes) {
       nacl.setPRNG(function(x, n) {
         var i, v = crypto.randomBytes(n);
